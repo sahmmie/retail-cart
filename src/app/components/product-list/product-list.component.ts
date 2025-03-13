@@ -16,7 +16,7 @@ export class ProductListComponent {
 
   constructor(private cartService: CartService) { }
 
-  addToCart(product: Product) {
+  public addToCart(product: Product) {
     this.cartService.addToCart(product);
   }
 }

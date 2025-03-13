@@ -1,0 +1,30 @@
+<div
+  class="flex items-center justify-between border-b pb-2 mb-2"
+>
+  <div class="flex items-center space-x-4">
+    <img
+      [src]="cartItem.product.image || 'assets/placeholder.jpg'"
+      class="w-16 h-16 object-cover rounded"
+    />
+    <div>
+      <h3 class="font-semibold">{{ cartItem.product.name }}</h3>
+      <p class="text-gray-600">${{ cartItem.product.price }}</p>
+    </div>
+  </div>
+
+  <div class="flex items-center space-x-4">
+    <input
+      type="number"
+      min="0"
+      [formControl]="quantityForm[cartItem.product.id]"
+      class="w-16 p-1 border rounded"
+    />
+    <p class="font-semibold">Subtotal: ${{ cartItem | subtotal }}</p>
+    <button
+      (click)="removeItem.emit(cartItem.product.id)"
+      class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+    >
+      Remove
+    </button>
+  </div>
+</div>

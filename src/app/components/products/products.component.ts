@@ -12,10 +12,10 @@ import { products } from '@/app/shared/constants/products.data';
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
-  public allProducts: Product[] = products;
+  private allProducts: Product[] = products;
   public filteredProducts: Product[] = products;
 
-  onSearch(term: string) {
+  public onSearch(term: string) {
     this.filteredProducts = this.allProducts.filter(product =>
       product.name.toLowerCase().includes(term)
     );

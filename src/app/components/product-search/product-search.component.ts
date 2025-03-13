@@ -16,9 +16,9 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  @Output() search = new EventEmitter<string>();
+  @Output() public search = new EventEmitter<string>();
 
-  searchControl = new FormControl('');
+  public searchControl = new FormControl('');
 
   ngOnInit() {
     this.searchControl.valueChanges.pipe(debounceTime(300), takeUntil(this.destroy$)).subscribe((value) => {
@@ -27,7 +27,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.destroy$.next();
-      this.destroy$.complete();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
