@@ -1,0 +1,39 @@
+<nav class="bg-blue-600 text-white p-4 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="/" class="text-xl font-bold">Retail Cart</a>
+
+    <div class="space-x-4 flex items-center">
+      <a class="hover:underline" [routerLink]="['/products']">Products</a>
+      <a
+        class="relative hover:underline flex items-center"
+        [routerLink]="['/cart']"
+      >
+        <span>Cart</span>
+        <svg
+          class="w-6 h-6 ml-1"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3 3h2l1 9h13l1-9h2"
+          ></path>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M16 13a4 4 0 11-8 0"
+          ></path>
+        </svg>
+        <span
+          class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full"
+        >
+          {{ (cartService.cart$ | async)?.length }}
+        </span>
+      </a>
+    </div>
+  </div>
+</nav>
