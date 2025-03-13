@@ -9,21 +9,20 @@ import { validDiscounts } from '../shared/constants/discount.data';
 })
 export class CartService {
   private cart: CartItem[] = this.loadCartFromStorage();
-  private discountCode: string = this.loadDiscountFromStorage();
 
   private cartSubject = new BehaviorSubject<CartItem[]>(this.cart);
   private discountSubject = new BehaviorSubject<number>(this.calcDiscountAmount);
 
   public cart$ = this.cartSubject.asObservable();
   public discountError$ = new BehaviorSubject<string>('');
-  public discountCode$ = new BehaviorSubject<string>(this.discountCode);
+  public discountCode$ = new BehaviorSubject<string>(this.loadDiscountFromStorage());
 
   constructor() {
     this.updateCart();
   }
 
   private get calcDiscountAmount(): number {
-    return this.discountCode ? validDiscounts[this.discountCode]?.(this.calcTotal) || 0 : 0;
+    return this.discountCode$?.getValue() ? validDiscounts[this.discountCode$?.getValue()]?.(this.calcTotal) || 0 : 0;
   }
 
   private get calcTotal(): number {
@@ -65,18 +64,15 @@ export class CartService {
 
   public applyDiscountCode(code: string) {
     if (!code) {
-      this.discountCode = '';
       this.discountCode$.next('');
       this.discountError$.next('');
     }
 
     const trimmedCode = code.trim().toUpperCase();
     if (validDiscounts[trimmedCode]) {
-      this.discountCode = trimmedCode;
       this.discountCode$.next(trimmedCode);
       this.discountError$.next('');
     } else {
-      this.discountCode = '';
       this.discountCode$.next('');
       this.discountError$.next('Invalid discount code');
     }
@@ -85,7 +81,7 @@ export class CartService {
 
   private updateCart() {
     localStorage.setItem('cart', JSON.stringify(this.cart));
-    localStorage.setItem('discountCode', this.discountCode);
+    localStorage.setItem('discountCode', this.discountCode$.value);
 
     this.cartSubject.next(this.cart);
     this.discountSubject.next(this.calcDiscountAmount);
