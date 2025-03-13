@@ -5,8 +5,7 @@ import { CartItem } from '@/app/interfaces/cart-item.interface';
 import { CartService } from '@/app/services/cart.service';
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
-import { SubtotalPipe } from "../../pipes/subtotal.pipe";
-import { CartListComponent } from "../cart-list/cart-list.component";
+import { CartListComponent } from './cart-list/cart-list.component';
 
 @Component({
   selector: 'app-cart',

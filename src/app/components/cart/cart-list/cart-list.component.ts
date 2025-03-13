@@ -1,8 +1,8 @@
 import { CartItem } from '@/app/interfaces/cart-item.interface';
+import { SubtotalPipe } from '@/app/pipes/subtotal.pipe';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SubtotalPipe } from "../../pipes/subtotal.pipe";
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart-list',

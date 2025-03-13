@@ -22,7 +22,7 @@ export class CartService {
   }
 
   private get calcDiscountAmount(): number {
-    return this.discountCode$?.getValue() ? validDiscounts[this.discountCode$?.getValue()]?.(this.calcTotal) || 0 : 0;
+    return this.discountCode$?.getValue() ? validDiscounts[this.discountCode$.getValue()]?.(this.calcTotal) || 0 : 0;
   }
 
   private get calcTotal(): number {

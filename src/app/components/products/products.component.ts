@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ProductListComponent } from "../product-list/product-list.component";
-import { ProductSearchComponent } from "../product-search/product-search.component";
+import { ProductListComponent } from "./product-list/product-list.component";
+import { ProductSearchComponent } from "./product-search/product-search.component";
 import { Product } from '@/app/interfaces/product.interface';
 import { products } from '@/app/shared/constants/products.data';
 
