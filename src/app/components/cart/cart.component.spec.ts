@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { CartComponent } from './cart.component';
 import { CartService } from '@/app/services/cart.service';
 import { CartItem } from '@/app/interfaces/cart-item.interface';
@@ -47,15 +47,16 @@ describe('CartComponent', () => {
     expect(component.discountTotal).toBe(8);
   });
 
-  it('should update quantity when input changes', () => {
+  it('should update quantity when input changes', fakeAsync(() => {
     const input = fixture.debugElement.query(By.css('input[type="number"]')).nativeElement;
     input.value = '2';
     input.dispatchEvent(new Event('input'));
 
     fixture.detectChanges();
+    tick(100); // Simulates time passing to trigger debounceTime
 
     expect(cartServiceMock.updateQuantity).toHaveBeenCalledWith(1, 2);
-  });
+  }));
 
   it('should apply discount code when button is clicked', () => {
     component.discountCodeForm.setValue('DISCOUNT20');

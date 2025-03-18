@@ -3,7 +3,10 @@ import { ProductListComponent } from './product-list.component';
 import { CartService } from '@/app/services/cart.service';
 import { By } from '@angular/platform-browser';
 import { Product } from '@/app/interfaces/product.interface';
-import { of } from 'rxjs';
+import { ToastrModule } from 'ngx-toastr';
+import { InCartPipe } from '@/app/pipes/inCart.pipe';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { CartItem } from '@/app/interfaces/cart-item.interface';
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
@@ -17,17 +20,19 @@ describe('ProductListComponent', () => {
 
   beforeEach(async () => {
     cartServiceMock = {
-      addToCart: jasmine.createSpy('addToCart')
+      cart$: new BehaviorSubject<CartItem[]>([]), // ✅ Mock cart$ as a BehaviorSubject
+      addToCart: jasmine.createSpy('addToCart').and.returnValue(new BehaviorSubject(null)), // ✅ Simulate observable return
+      removeFromCart: jasmine.createSpy('removeFromCart').and.returnValue(new BehaviorSubject(null)), // ✅ Simulate observable return
     };
 
     await TestBed.configureTestingModule({
-      imports: [ProductListComponent],
+      imports: [ProductListComponent, ToastrModule.forRoot(), InCartPipe],
       providers: [{ provide: CartService, useValue: cartServiceMock }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProductListComponent);
     component = fixture.componentInstance;
-    component.products = mockProducts; // Provide mock products
+    component.products = mockProducts;
     fixture.detectChanges();
   });
 
@@ -53,4 +58,15 @@ describe('ProductListComponent', () => {
 
     expect(cartServiceMock.addToCart).toHaveBeenCalledWith(mockProducts[0]);
   });
+
+  it('should call removeFromCart when button is clicked', () => {
+    component.cart = [{ product: mockProducts[0], quantity: 1 }]; // Simulate product in cart
+    fixture.detectChanges();
+
+    const button = fixture.debugElement.query(By.css('.bg-red-500')).nativeElement;
+    button.click();
+
+    expect(cartServiceMock.removeFromCart).toHaveBeenCalledWith(mockProducts[0].id);
+  });
+
 });

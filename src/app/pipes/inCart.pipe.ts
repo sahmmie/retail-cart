@@ -8,7 +8,6 @@ import { Product } from '../interfaces/product.interface';
   pure: false
 })
 export class InCartPipe implements PipeTransform {
-
   transform(item: Product, cart: CartItem[]): boolean {
     return cart.find(ci => ci.product.id === item.id) !== undefined;
   }
