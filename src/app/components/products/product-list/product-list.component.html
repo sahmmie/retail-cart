@@ -12,11 +12,21 @@
     />
     <h3 class="mt-4 text-lg font-semibold">{{ product.name }}</h3>
     <p class="text-gray-600">${{ product.price }}</p>
-    <button
-      (click)="addToCart(product)"
-      class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
-    >
-      Add to Cart
-    </button>
+    <ng-container *ngIf="product | inCart : cart; else elseTemplate">
+      <button
+        (click)="removeFromCart(product)"
+        class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+      >
+        Remove from Cart
+      </button>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <button
+        (click)="addToCart(product)"
+        class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+      >
+        Add to Cart
+      </button>
+    </ng-template>
   </div>
 </div>

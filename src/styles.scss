@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'ngx-toastr/toastr';
+
 @layer base {
   body{
     @apply bg-gray-100;

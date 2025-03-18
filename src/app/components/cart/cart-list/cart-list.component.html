@@ -1,28 +1,37 @@
 <div
-  class="flex items-center justify-between border-b pb-2 mb-2"
+  class="flex flex-col md:flex-row items-start md:items-center justify-between border-b pb-2 mb-2 space-y-3 md:space-y-0"
 >
-  <div class="flex items-center space-x-4">
+  <div class="flex items-center space-x-4 w-full md:w-auto">
     <img
-      [src]="cartItem.product.image || 'assets/placeholder.jpg'"
+      [src]="cartItem.product.image"
       class="w-16 h-16 object-cover rounded"
     />
     <div>
-      <h3 class="font-semibold">{{ cartItem.product.name }}</h3>
-      <p class="text-gray-600">${{ cartItem.product.price }}</p>
+      <h3 class="font-semibold text-sm md:text-base">
+        {{ cartItem.product.name }}
+      </h3>
+      <div class="flex items-center space-x-5 mt-2">
+        <p class="text-gray-600 text-sm">${{ cartItem.product.price }}</p>
+        <input
+          placeholder="Quantity"
+          type="number"
+          min="0"
+          [formControl]="quantityForm[cartItem.product.id]"
+          class="w-16 p-1 border rounded text-sm md:text-base"
+        />
+      </div>
     </div>
   </div>
 
-  <div class="flex items-center space-x-4">
-    <input
-      type="number"
-      min="0"
-      [formControl]="quantityForm[cartItem.product.id]"
-      class="w-16 p-1 border rounded"
-    />
-    <p class="font-semibold">Subtotal: ${{ cartItem | subtotal }}</p>
+  <div
+    class="flex flex-col md:flex-row items-start md:items-center space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto"
+  >
+    <p class="font-semibold text-sm md:text-base">
+      Subtotal: ${{ cartItem | subtotal }}
+    </p>
     <button
       (click)="removeItem.emit(cartItem.product.id)"
-      class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+      class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm md:text-base"
     >
       Remove
     </button>

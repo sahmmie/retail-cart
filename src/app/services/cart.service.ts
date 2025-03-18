@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { CartItem } from '../interfaces/cart-item.interface';
 import { Product } from '../interfaces/product.interface';
 import { validDiscounts } from '../shared/constants/discount.data';
+import { Observable } from 'rxjs/internal/Observable';
+import { of } from 'rxjs/internal/observable/of';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +38,7 @@ export class CartService {
     };
   }
 
-  public addToCart(product: Product) {
+  public addToCart(product: Product): Observable<boolean> {
     const item = this.cart.find(ci => ci.product.id === product.id);
     if (item) {
       item.quantity++;
@@ -44,11 +46,13 @@ export class CartService {
       this.cart.push({ product, quantity: 1 });
     }
     this.updateCart();
+    return of(true);
   }
 
-  public removeFromCart(productId: number) {
+  public removeFromCart(productId: number): Observable<boolean> {
     this.cart = this.cart.filter(ci => ci.product.id !== productId);
     this.updateCart();
+    return of(true);
   }
 
   public updateQuantity(productId: number, quantity: number) {

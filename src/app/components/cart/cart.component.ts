@@ -6,6 +6,7 @@ import { CartService } from '@/app/services/cart.service';
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { CartListComponent } from './cart-list/cart-list.component';
+import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 
 @Component({
   selector: 'app-cart',
@@ -57,11 +58,13 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   private handleQuantityChanges(item: CartItem): void {
-    this.quantityForms[item.product.id].valueChanges.pipe(takeUntil(this.destroy$)).subscribe((newQuantity) => {
-      if (newQuantity >= 0) {
-        this.cartService.updateQuantity(item.product.id, newQuantity);
-      }
-    });
+    this.quantityForms[item.product.id].valueChanges
+      .pipe(takeUntil(this.destroy$), debounceTime(100))
+      .subscribe((newQuantity) => {
+        if (newQuantity >= 0) {
+          this.cartService.updateQuantity(item.product.id, newQuantity);
+        }
+      });
   }
 
   private handleDiscountCodeChanges(): void {
