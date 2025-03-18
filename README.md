@@ -1,28 +1,147 @@
 # RetailCart
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.13.
+RetailCart is a simple single-page application (SPA) built with **Angular 18** that simulates a retail shopping cart. Users can browse products, add them to a cart, manage quantities, apply discount codes, and view a real-time total calculation.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### 🛍️ Product List
 
-## Code scaffolding
+- Displays a list of available products.
+- Each product has a **name**, **price**, and an **image** (or placeholder).
+- Users can add products to the cart.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 🛒 Shopping Cart
 
-## Build
+- View added products with their **name, price, and quantity**.
+- Modify product quantities or remove items from the cart.
+- Calculates **subtotal** (price \* quantity) for each product.
+- Shows the **grand total** (sum of all subtotals).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 🎟️ Discount Code
 
-## Running unit tests
+- Users can apply a discount code.
+- Supports:
+  - **SAVE10** → 10% off the grand total
+  - **SAVE5** → $5 off the grand total
+- Displays an error message for invalid codes.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 🖥️ UI/UX
 
-## Running end-to-end tests
+- Clean and user-friendly interface using **Tailwind CSS**.
+- Clear navigation flow:
+  - Browse products
+  - Add to cart
+  - View cart and apply discount
+- Navbar with cart item count badge.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 🔄 Persistence (Bonus)
 
-## Further help
+- Uses **LocalStorage** to persist the cart state across page reloads.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-# retail-cart
+## Tech Stack
+
+- **Angular 18** (framework)
+- **TypeScript** (strongly typed JavaScript)
+- **Tailwind CSS** (styling)
+- **RxJS** (reactive state management)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- **Node.js** (v18 or later)
+- **Angular CLI** (v18.2.13)
+
+### Installation & Setup
+
+```sh
+# Clone the repository
+git clone https://github.com/yourusername/retail-cart.git
+cd retail-cart
+
+# Install dependencies
+npm install
+
+# Start the development server
+ng serve
+```
+
+Navigate to **http://localhost:4200/** in your browser.
+
+---
+
+## 📁 Project Structure
+
+```
+retail-cart/
+│── src/
+│   ├── app/
+│   │   ├── components/
+│   │   │   ├── product-list/
+│   │   │   ├── cart/
+│   │   ├── services/
+│   │   │   ├── cart.service.ts
+│   │   ├── interfaces/
+│   │   │   ├── product.model.ts
+│   │   │   ├── cart-item.model.ts
+│   ├── assets/
+│   ├── styles/
+│   │   ├── styles.scss
+```
+
+### Key Components
+
+- **ProductListComponent** → Displays products & "Add to Cart" button.
+- **CartComponent** → Shows cart items, allows quantity changes & discount code input.
+- **CartService** → Manages cart state across the app.
+
+---
+
+## ✅ Running Tests
+
+### Unit Tests
+
+```sh
+ng test
+```
+
+Runs tests using **Karma**.
+
+### End-to-End Tests
+
+## 🚀 Deployment
+
+You can deploy the application using **Vercel, Firebase, or Netlify**.
+
+```sh
+ng build --prod
+```
+
+Then, deploy the `dist/` folder to your preferred hosting platform.
+
+---
+
+## 🔗 Live Demo
+
+Check out the deployed version here: [Live Demo](https://retailcart.netlify.app)
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+**Ibrahim**
+
+- GitHub: [@sahmmie](https://github.com/sahmmie)
+- LinkedIn: [Ibrahim Samson](https://linkedin.com/in/ibrahim-samson)
+
+Feel free to contribute or provide feedback! 🚀
